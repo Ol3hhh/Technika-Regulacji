@@ -8,26 +8,26 @@ tspan = 0 : 0.1 : 500;
 odefun = @(t, X) [X(2); (A + sin(B*t) - (1/C)*X(2) - 2*X(1)) / 5];
 
 
-An = 3/11 - cos(5*t) - sin(1351*t)/1351 - 0.182*exp(-t/110)*cos(0.64*t)+0.29*exp(-t/110)*sin(0.64*t);
+An = 3/11 - 2.73*10^(-6)*cos(5*t) - 0.00074*sin(5*t) - 0.0292636*exp(-t/22)*(sqrt(967)*cos(sqrt(967)/22*t)-0.36*sin(sqrt(967)/22*t));
 
 
 
 
 
-X0 = [0 0];    
+X0 = [1 2];    
 
 [t, X] = ode45(odefun, tspan, X0);
 
 
 
-plot(t, X(:,1))
+plot(t, X(:,1), 'b', 'DisplayName', 'Rozwiązanie numeryczne'); % Pierwszy wykres na niebiesko
+hold on;
+fplot(An, [0, 500], 'r', 'DisplayName', 'Rozwiązanie analityczne'); % Drugi wykres na czerwono
 grid on;
 xlabel('Czas [s]');
 ylabel('Wartość sygnału');
+legend;
 
-fplot(An, [0, 500]);
-grid on;
-xlabel('Czas [s]');
-ylabel('Wartość sygnału');
+
 
 
